@@ -298,3 +298,10 @@ image running. The image tag should be the short-sha of your new HEAD commit
   - There is an attestation called `alpha.unit-test`
   - Click the `>` chevron in the Trail to open the attestation drop-down
   - Browse the JUnit results in the JSON sent by the `kosli attest junit` command
+ 
+## Where next?
+
+Congratulations, you've successfully instrumented a pipeline to record evidence for a software delivery process! Here's a few things that you can try now to learn some more:
+
+- Can you make a [generic attestation](https://docs.kosli.com/client_reference/kosli_attest_generic/) to record the lint step in the pipeline?
+  - Unlike the junit attestation, the Kosli CLI can't determine whether the linting is compliant, how can you record a non-compliant attestation if the linting fails?
