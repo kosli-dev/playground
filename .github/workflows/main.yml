@@ -136,8 +136,8 @@ jobs:
     - id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
       with:
-        cluster_name: 'db-playground-1'
-        location: 'europe-west1'
+        cluster_name: 'db-playground-2'
+        location: 'europe-west1-b'
 
     - uses: Azure/k8s-deploy@v5
       env:
