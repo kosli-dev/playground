@@ -8,6 +8,6 @@ COPY --chown=nobody:nogroup config config
 RUN chmod +x /app/config/*.sh
 
 USER nobody
-HEALTHCHECK --interval=1s --timeout=1s --retries=5 --start-period=5s CMD ./config/healthcheck.sh
+#HEALTHCHECK --interval=1s --timeout=1s --retries=5 --start-period=5s CMD ./config/healthcheck.sh
 ENTRYPOINT [ "/sbin/tini", "-g", "--" ]
 CMD [ "/app/config/up.sh" ]

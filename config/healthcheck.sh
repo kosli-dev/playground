@@ -11,7 +11,7 @@ set -Eeu
 # --retries=N      number of tries until container considered unhealthy
 # --start-period=S grace period when healthcheck fails dont count towards --retries
 
-readonly PORT="${ALPHA_PORT}"
+readonly PORT="${ALPHA_PORT:-4500}"
 readonly READY_LOG_FILENAME=/tmp/ready.log
 
 wget "http://0.0.0.0:${PORT}/ready" -q -O - >> "${READY_LOG_FILENAME}" 2>&1
