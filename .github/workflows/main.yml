@@ -1,9 +1,9 @@
-name: alpha on main
+name: alpha on gcp-k8s
 
 on:
   push:
     branches:
-      - main
+      - gcp-k8s
 
 env:
   DOCKER_USERNAME: ${{ github.actor }}
@@ -125,29 +125,25 @@ jobs:
     steps:
     - uses: actions/checkout@v4.1.1
 
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ env.DOCKER_REGISTRY }}
-        username: ${{ env.DOCKER_USERNAME }}
-        password: ${{ env.DOCKER_PASSWORD }}
+    - uses: azure/setup-kubectl@v3
 
-    - name: Fake a deployment
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        project_id: 'test-kubernetes-environment'
+        credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
+
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v2'
+      with:
+        cluster_name: 'db-playground-1'
+        location: 'europe-west1'
+
+    - uses: Azure/k8s-deploy@v5
       env:
         IMAGE_NAME: ${{ needs.setup.outputs.image_name }}
-      run: |
-        docker pull "${IMAGE_NAME}"        
-        export COMMIT_SHORT_SHA=$(git rev-parse --short=7 HEAD)
-        docker compose up --wait
-
-    - name: Setup Kosli cli
-      uses: kosli-dev/setup-cli-action@v2
       with:
-        version:
-          ${{ env.KOSLI_CLI_VERSION }}
+         manifests: |
+            deployment
+         images: '${{ env.IMAGE_NAME }}'
 
-    - name: Create a Snapshot
-      env:
-        KOSLI_ENVIRONMENT_NAME: playground-prod
-      run:
-        kosli snapshot docker "${KOSLI_ENVIRONMENT_NAME}"

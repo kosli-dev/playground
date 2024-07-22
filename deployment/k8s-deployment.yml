@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpha-deployment
+  labels:
+    app: alpha
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpha
+  template:
+    metadata:
+      labels:
+        app: alpha
+    spec:
+      containers:
+      - name: alpha
+        image: ghcr.io/kosli-dev/playground-alpha
+        ports:
+        - containerPort: 80
