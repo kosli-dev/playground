@@ -1,0 +1,15 @@
+# helm values file for the kosli k8s reporter helm chart
+
+cronSchedule: "*/1 * * * *"
+reporterConfig:
+  # -- the name of the Kosli org
+  kosliOrg: "<your-org>"
+  # -- the name of Kosli environment that the k8s cluster/namespace correlates to
+  kosliEnvironmentName: "<your-environment-name>"
+  # -- the namespaces which represent the environment.
+  # It is a comma separated list of namespace name regex patterns.
+  # e.g. `^prod$,^dev-*` reports for the `prod` namespace and any namespace that starts with `dev-`
+  # leave this unset if you want to report what is running in the entire cluster
+  namespaces: "default"
+  # -- whether the dry run mode is enabled or not. In dry run mode, the reporter logs the reports to stdout and does not send them to kosli.
+  dryRun: false

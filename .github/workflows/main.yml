@@ -10,10 +10,10 @@ env:
   DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   DOCKER_REGISTRY: ghcr.io          # if you change this, change it in the .env file as well
   REPO_NAME: ${{ github.event.repository.name }}
-  KOSLI_CLI_VERSION: 2.10.10
-  KOSLI_HOST: https://app.kosli.com
-  KOSLI_ORG: ${{ github.actor }}
-  KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN }}
+  # KOSLI_CLI_VERSION: 2.10.10
+  # KOSLI_HOST: https://app.kosli.com
+  # KOSLI_ORG: <your-kosli-org>
+  # KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN }}
 
 jobs:
 
@@ -144,6 +144,6 @@ jobs:
         IMAGE_NAME: ${{ needs.setup.outputs.image_name }}
       with:
          manifests: |
-            deployment
+            deployment/gke
          images: '${{ env.IMAGE_NAME }}'
 
