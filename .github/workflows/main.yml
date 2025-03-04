@@ -83,7 +83,7 @@ jobs:
         docker image save ${{ needs.setup.outputs.image_name }} --output ${{ needs.setup.outputs.image_tar_filename }}
 
     - name: Cache Docker image
-      uses: actions/cache@v4.0.0
+      uses: actions/cache@v4
       with:
         path: ${{ needs.setup.outputs.image_tar_filename }}
         key: ${{ needs.setup.outputs.image_name }}
